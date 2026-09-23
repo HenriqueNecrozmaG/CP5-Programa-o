@@ -46,37 +46,40 @@ public class PokemonManager : MonoBehaviour
     private bool isRayquazaActive;
     private bool isMRayquazaActive;
 
+    private float mouseStartPosition;
+    private float mouseEndPosition;
+
     public void Start()
     {
         isSceptileActive = true;
         isMSceptileActive = false;
-        sceptile.transform.eulerAngles = new Vector3(0, 180, 0);
-        mSceptile.transform.eulerAngles = new Vector3(0, 180, 0);
+        sceptile.transform.eulerAngles = new Vector3(-90, 180, 0);
+        mSceptile.transform.eulerAngles = new Vector3(-90, 180, 0);
 
         isBlazikenActive = false;
         isMBlazikenActive = false;
-        blaziken.transform.eulerAngles = new Vector3(0, 180, 0);
-        mBlaziken.transform.eulerAngles = new Vector3(0, 180, 0);
+        blaziken.transform.eulerAngles = new Vector3(-90, 180, 0);
+        mBlaziken.transform.eulerAngles = new Vector3(-90, 180, 0);
 
         isSwampertActive = false;
         isMSwampertActive = false;
-        swampert.transform.eulerAngles = new Vector3(0, 180, 0);
-        mSwampert.transform.eulerAngles = new Vector3(0, 180, 0);
+        swampert.transform.eulerAngles = new Vector3(-90, 180, 0);
+        mSwampert.transform.eulerAngles = new Vector3(-90, 180, 0);
 
         isGroudonActive = false;
         isMGroudonActive = false;
-        groudon.transform.eulerAngles = new Vector3(0, 180, 0);
-        mGroudon.transform.eulerAngles = new Vector3(0, 180, 0);
+        groudon.transform.eulerAngles = new Vector3(-90, 180, 0);
+        mGroudon.transform.eulerAngles = new Vector3(-90, 180, 0);
 
         isKyogreActive = false;
         isMKyogreActive = false;
-        kyogre.transform.eulerAngles = new Vector3(0, 180, 0);
-        mKyogre.transform.eulerAngles = new Vector3(0, 180, 0);
+        kyogre.transform.eulerAngles = new Vector3(-90, 180, 0);
+        mKyogre.transform.eulerAngles = new Vector3(-90, 180, 0);
 
         isRayquazaActive = false;
         isMRayquazaActive = false;
-        rayquaza.transform.eulerAngles = new Vector3(0, 180, 0);
-        mRayquaza.transform.eulerAngles = new Vector3(0, 180, 0);
+        rayquaza.transform.eulerAngles = new Vector3(-90, 180, 0);
+        mRayquaza.transform.eulerAngles = new Vector3(-90, 180, 0);
 
         toggleMega.isOn = false;
     }
@@ -85,6 +88,7 @@ public class PokemonManager : MonoBehaviour
     {
         activatePokémon();
         ToggleMega();
+        Swipe();
     }
 
     private void activatePokémon()
@@ -403,6 +407,145 @@ public class PokemonManager : MonoBehaviour
         {
             isMRayquazaActive = false;
             isMGroudonActive = true;
+        }
+    }
+
+    private void Swipe()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            mouseStartPosition = Input.mousePosition.x;
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            mouseEndPosition = Input.mousePosition.x;
+        }
+
+        if (mouseEndPosition < mouseStartPosition)
+        {
+            if (isSceptileActive)
+            {
+                isSceptileActive = false;
+                isBlazikenActive = true;
+            }
+            else if (isBlazikenActive)
+            {
+                isBlazikenActive = false;
+                isSwampertActive = true;
+            }
+            else if (isSwampertActive)
+            {
+                isSwampertActive = false;
+                isKyogreActive = true;
+            }
+            else if (isKyogreActive)
+            {
+                isKyogreActive = false;
+                isGroudonActive = true;
+            }
+            else if (isGroudonActive)
+            {
+                isGroudonActive = false;
+                isRayquazaActive = true;
+            }
+            else if (isRayquazaActive)
+            {
+                return;
+            }
+
+            if (isMSceptileActive)
+            {
+                isMSceptileActive = false;
+                isMBlazikenActive = true;
+            }
+            else if (isMBlazikenActive)
+            {
+                isMBlazikenActive = false;
+                isMSwampertActive = true;
+            }
+            else if (isMSwampertActive)
+            {
+                isMSwampertActive = false;
+                isMKyogreActive = true;
+            }
+            else if (isMKyogreActive)
+            {
+                isMKyogreActive = false;
+                isMGroudonActive = true;
+            }
+            else if (isMGroudonActive)
+            {
+                isMGroudonActive = false;
+                isMRayquazaActive = true;
+            }
+            else if (isMRayquazaActive)
+            {
+                return;
+            }
+        }
+
+        if (mouseEndPosition > mouseStartPosition)
+        {
+            if (isSceptileActive)
+            {
+                return;
+            }
+            else if (isBlazikenActive)
+            {
+                isBlazikenActive = false;
+                isSceptileActive = true;
+            }
+            else if (isSwampertActive)
+            {
+                isSwampertActive = false;
+                isBlazikenActive = true;
+            }
+            else if (isKyogreActive)
+            {
+                isKyogreActive = false;
+                isSwampertActive = true;
+            }
+            else if (isGroudonActive)
+            {
+                isGroudonActive = false;
+                isKyogreActive = true;
+            }
+            else if (isRayquazaActive)
+            {
+                isRayquazaActive = false;
+                isGroudonActive = true;
+            }
+
+            if (isMSceptileActive)
+            {
+                return;
+            }
+            else if (isMBlazikenActive)
+            {
+                isMBlazikenActive = false;
+                isMSceptileActive = true;
+            }
+            else if (isMSwampertActive)
+            {
+                isMSwampertActive = false;
+                isMBlazikenActive = true;
+            }
+            else if (isMKyogreActive)
+            {
+                isMKyogreActive = false;
+                isMSwampertActive = true;
+            }
+            else if (isMGroudonActive)
+            {
+                isMGroudonActive = false;
+                isMKyogreActive = true;
+            }
+            else if (isMRayquazaActive)
+            {
+                isMRayquazaActive = false;
+                isMGroudonActive = true;
+            }
         }
     }
 }
